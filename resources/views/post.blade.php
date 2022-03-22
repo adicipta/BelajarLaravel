@@ -6,6 +6,6 @@
 
 {!! $post->body !!}
 
-<a href="/post">Back to Posts</a>
+</br><a href="/post">Back to Posts</a>
 </article>
 @endsection
