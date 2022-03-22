@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,23 +31,9 @@ Route::get('/about', function () {
 
 
 Route::get('/blog', function () {
-    $blog_posts = [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "jusul-post-pertama",
-            "author" => "Adi Cipta Pratama",
-            "body" => "Ini adalah Post Pertama Adi Cipta Pratama. Dibuat di tanggal 21 Maret 2022 Oleh Adi Cipta Pratama",
-        ],
-        [
-            "title" => "Judul Post Kedua",
-            "slug" => "jusul-post-kedua",
-            "author" => "Liestiani Hasan",
-            "body" => "Ini adalah Post Kedua Liestiani Hasan. Dibuat di tanggal 21 Maret 2022 Oleh Liestiani Hasan.",
-        ],
-    ];
     return view('posts', [
         "title" => "Posts",
-        "posts" => $blog_posts
+        "posts" => Post::all()
     ]);
 });
 
@@ -68,15 +55,8 @@ Route::get('posts/{slug}', function($slug){
     ];
 
 
-    $new_post = [];
-    foreach($blog_posts as $post) {
-        if($post["slug"] === $slug) {
-            $new_post = $post;
-        }
-    }
-
     return view('post', [
         "title" => "Single Post",
-        "post" => $new_post
+        "post" => Post::find($slug)
     ]);
 });
