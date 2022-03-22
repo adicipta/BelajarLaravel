@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,33 +31,5 @@ Route::get('/about', function () {
 });
 
 
-Route::get('/blog', function () {
-    return view('posts', [
-        "title" => "Posts",
-        "posts" => Post::all()
-    ]);
-});
-
-// halaman single post
-Route::get('posts/{slug}', function($slug){
-    $blog_posts = [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "jusul-post-pertama",
-            "author" => "Adi Cipta Pratama",
-            "body" => "Ini adalah Post Pertama Adi Cipta Pratama. Dibuat di tanggal 21 Maret 2022 Oleh Adi Cipta Pratama",
-        ],
-        [
-            "title" => "Judul Post Kedua",
-            "slug" => "jusul-post-kedua",
-            "author" => "Liestiani Hasan",
-            "body" => "Ini adalah Post Kedua Liestiani Hasan. Dibuat di tanggal 21 Maret 2022 Oleh Liestiani Hasan.",
-        ],
-    ];
-
-
-    return view('post', [
-        "title" => "Single Post",
-        "post" => Post::find($slug)
-    ]);
-});
+Route::get('/post', [PostController::class, 'index']);
+Route::get('posts/{slug}', [PostController::class, 'show']);
